@@ -27,11 +27,20 @@
    JOIN departments ON departments.id = degrees.department_id 
    ORDER BY students.surname ASC
 
-5.  Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
 
    SELECT `degrees`.`name` AS `name_degree`, `degrees`.`level` AS `level_degree`, `degrees`.`address` AS `address_degree`, `degrees`.`email` AS `email_degree`, `degrees`.`website` AS `website_degree`, `courses`.`name` AS `name_course`, `courses`.`description` AS `description_course`, `courses`.`period` AS `period_course`, `courses`.`year` AS `year_course`, `courses`.`cfu` AS `cfu_course`, `courses`.`website` AS `website_course`, `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`, `teachers`.`phone` AS `teacher_phone`, `teachers`.`email` AS `teacher_email`, `teachers`.`office_address` AS `teacher_office_address`, `teachers`.`office_number` AS `teacher_office_number`
    FROM `courses`
    JOIN `degrees` ON `degrees`.`id` = `courses`.`degree_id`
    JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
    JOIN `teachers` ON `teachers`.`id` = `course_teacher`.`teacher_id`  
-   ORDER BY `name_degree`   
+   ORDER BY `name_degree`  
+
+6. Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
+
+   SELECT DISTINCT `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`, `teachers`.`phone` AS `teacher_phone`, `teachers`.`email` AS `teacher_email`, `teachers`.`office_address` AS `teacher_office_address`, `teachers`.`office_number` AS `teacher_office_number`, `courses`.`name` AS `name_course`, `courses`.`description` AS `description_course`, `courses`.`period` AS `period_course`, `courses`.`year` AS `year_course`, `courses`.`cfu` AS `cfu_course`, `courses`.`website` AS `website_course`, `degrees`.`name` AS `name_degree`, `degrees`.`level` AS `level_degree`, `degrees`.`address` AS `address_degree`, `degrees`.`email` AS `email_degree`, `degrees`.`website` AS `website_degree`
+   FROM `courses`
+   JOIN `degrees` ON `degrees`.`id` = `courses`.`degree_id`
+   JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+   JOIN `teachers` ON `teachers`.`id` = `course_teacher`.`teacher_id`
+   WHERE `department_id` = 5    
